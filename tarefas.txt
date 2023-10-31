@@ -1,3 +1,9 @@
+A	6945	g
 ST   ID  TAREFA
-A	3357	aaa
-A	6553	bbb
+A	7471	a
+ST   ID  TAREFA
+A	2491	a
+A	5378	a
+ST   ID  TAREFA
+A	4510	a
+ST   ID  TAREFA

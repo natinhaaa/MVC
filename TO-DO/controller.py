@@ -33,8 +33,7 @@ class ControllerExcluirTarefa():
         self.idexcluir = idexcluir
 
         try:
-            if idexcluir in TODO.ListarTarefas():
-                TODO.RemoverTarefa(idexcluir)
+            if TODO.RemoverTarefa(idexcluir):
                 print("Tarefa removida.")
             else:
                 print("Algum problema foi encontrado.")
@@ -46,18 +45,45 @@ class ControllerExcluirTarefa():
 class ControllerListarTarefa():
     def __init__(self):
         ControllerLista = TODO.ListarTarefas()
-        cont = 0
-        for tarefas in ControllerLista:
+            
+        cont = -1
+        for tarefa in ControllerLista:
             cont += 1
-            tarefasCorrigidas = tarefas.split("\t", 2)
-            tarefasFormatadas = tarefasCorrigidas[2][:-1]
-            if cont >= 1:
-                print(f"{cont}. {tarefasFormatadas}")
+            tarefas_corrigidas = tarefa.split("\t", 2)
+            
+            if len(tarefas_corrigidas) > 2:
+                tarefas_formatadas = tarefas_corrigidas[2][:-1]
+                
+                if cont >= 0:
+                    print(f"{cont}. {tarefas_formatadas}")
+
+class ControllerAlterarTarefa(ControllerListarTarefa):
+    def __init__(self):
+        self.dao_alterar_tarefa = DaoAlterarTarefa()
+        self.controller_todo = ToDo()
+
+    def alterar_tarefa(self, indice, nova_descricao):
+        tarefas_lista = self.ListarTarefas()
+
+        if 1 <= indice <= len(tarefas_lista):
+            tarefa = tarefas_lista[indice - 1]
+
+            tarefas_corrigidas = tarefa.split("\t", 2)
+
+            tarefas_corrigidas[2] = nova_descricao + "\n"
+
+            tarefa_alterada = "\t".join(tarefas_corrigidas)
+
+            tarefas_lista[indice - 1] = tarefa_alterada
+
+            self.AtualizarTarefas(tarefas_lista)
+
+            print(f"Tarefa {indice} alterada com sucesso.")
 
 class ControllerStatusTarefa():
     def __init__(self):
         pass
 
-class ControllerAlterarTarefa():
+class ControllerConcluirTarefa():
     def __init__(self):
         pass

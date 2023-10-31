@@ -9,12 +9,23 @@ class ToDo():
         return daoAdicionar.adicionar_tarefa(tarefa, idtarefa, status)
         
     def ListarTarefas(self):
-        return DaoListarTarefa.listar()
-
-    def RemoverTarefa(self, idexcluir):
-        return DaoExcluirTarefa.excluir(idexcluir)
+        daoListar = DaoListarTarefa()
+        return daoListar.listar()
     
-    def StatusTarefa(self, status):
-        return DaoStatusTarefa.concluir(status)
-
+    def RemoverTarefa(self, idexcluir):
+        daoExcluir = DaoExcluirTarefa()
+        return daoExcluir.excluir(idexcluir)
+    
+    def AtualizarTarefas(self, tarefas_lista):
+        daoAtualizar = DaoAlterarTarefa()
+        return daoAtualizar.AtualizarTarefas(tarefas_lista)
+    
+    def StatusTarefaC(self, status):
+        daoStatusC = DaoStatusTarefa()
+        return daoStatusC.concluir(status)
+    
+    def StatusTarefaI(self, status):
+        daoStatusI = DaoStatusTarefa()
+        return daoStatusI.inativar(status)
+    
 TODO = ToDo()
